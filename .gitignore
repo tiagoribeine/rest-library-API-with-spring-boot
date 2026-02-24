@@ -1,0 +1,36 @@
+### Java / Maven / Gradle ###
+target/
+build/
+bin/
+out/
+*.class
+*.war
+*.ear
+*.jar
+!**/lib/*.jar
+
+### Maven Wrapper ###
+.mvn/wrapper/
+!.mvn/wrapper/maven-wrapper.jar
+!.mvn/wrapper/maven-wrapper.properties
+
+### IDEs (Generalista e Eficiente) ###
+.idea/
+*.iml
+*.iws
+*.ipr
+.classpath
+.project
+.settings/
+.vscode/
+.nb-gradle/
+nbproject/
+dist/
+
+### OS e Ambiente ###
+.DS_Store
+Thumbs.db
+.env
+.env.*
+!.env.example
+ignoredByGit/
