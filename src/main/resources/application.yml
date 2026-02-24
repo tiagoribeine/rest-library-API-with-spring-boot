@@ -10,14 +10,14 @@ spring:
     password: ${DB_PASSWORD}
 
     #Configurações do JPA:
-    jpa:
-      database-platform: org.hibernate.dialect.MySQLDialect #dialeto do SQL utilizado pelo JPA
-      #Configurações do Hibernate:
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect #dialeto do SQL utilizado pelo JPA
+    #Configurações do Hibernate:
+    hibernate:
+      ddl-auto: update
+    properties: #Propriedades específicas do Hibernate
       hibernate:
-        ddl-auto: update
-      properties: #Propriedades específicas do Hibernate
-        hibernate:
-      show-sql: true #Exibe no console os comandos SQL gerados pelo hibernate - true é util para debug
+    show-sql: true #Exibe no console os comandos SQL gerados pelo hibernate - true é util para debug
 
 logging:
   level:
