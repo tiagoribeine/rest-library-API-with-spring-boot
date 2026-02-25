@@ -23,13 +23,13 @@ public class Book implements Serializable {
     @JoinColumn(name = "author_id")
     private Author author;
 
-    @Column(name = "isbn", nullable = false, unique = true)
+    @Column(name = "isbn", nullable = true, unique = true)
     private String isbn; //International Standard Book Number
 
-    @Column(name = "price", nullable = false)
+    @Column(name = "price", nullable = true)
     private BigDecimal price;
 
-    @Column(name = "launch_date", nullable = false)
+    @Column(name = "launch_date", nullable = true)
     private LocalDate launchDate;
 
     public Book() {
