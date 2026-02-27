@@ -1,8 +1,11 @@
 package com.github.tiagoribeine.service;
 
+import com.github.tiagoribeine.exception.custom.DatabaseException;
+import com.github.tiagoribeine.exception.custom.ResourceNotFoundException;
 import com.github.tiagoribeine.model.Book;
 import com.github.tiagoribeine.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,7 +19,7 @@ public class BookService {
     //find
     public Book findBook(Long id){
         return bookRepository.findById(id).
-                orElseThrow(() -> new RuntimeException("Bookt not found with Id: " + id)); //Tratando a exceção de inexistência do id
+                orElseThrow(() -> new ResourceNotFoundException("Book not found with Id: " + id)); //Tratando a exceção de inexistência do id
     }
 
     //find all
@@ -36,16 +39,21 @@ public class BookService {
             book.setId(id);
             return bookRepository.save(book);
         } else{
-            throw  new RuntimeException("Cannot update: Book not found!");
+            throw  new ResourceNotFoundException("Cannot update: Book not found!");
         }
     }
 
     //delete
     public void deleteBook(Long id){
-        if(bookRepository.existsById(id)){
+        if(!bookRepository.existsById(id)){
+            throw new ResourceNotFoundException("Book not found with ID: " + id);
+        }
+
+        try {
             bookRepository.deleteById(id);
-        } else {
-            throw new RuntimeException("Cannot delete: Book not found!");
+        } catch (DataIntegrityViolationException e){
+            throw new DatabaseException("Cannot delete: Book is linked to an existing author");
         }
     }
 }
+

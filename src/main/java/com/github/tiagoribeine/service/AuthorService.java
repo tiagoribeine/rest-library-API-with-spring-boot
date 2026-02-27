@@ -1,8 +1,11 @@
 package com.github.tiagoribeine.service;
 
+import com.github.tiagoribeine.exception.custom.DatabaseException;
+import com.github.tiagoribeine.exception.custom.ResourceNotFoundException;
 import com.github.tiagoribeine.model.Author;
 import com.github.tiagoribeine.repository.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,7 +19,7 @@ public class AuthorService {
     //find
     public Author findAuthor(Long id){
       return authorRepository.findById(id)
-              .orElseThrow(() -> new RuntimeException("Author not found!"));
+              .orElseThrow(() -> new ResourceNotFoundException("Author not found!"));
     }
 
     //find all
@@ -37,16 +40,22 @@ public class AuthorService {
           return authorRepository.save(author);
       }
       else {
-          throw new RuntimeException("Author not found!");
+          throw new ResourceNotFoundException("Author not found!");
       }
     };
 
     //delete
     public void deleteAuthor(Long id){
-        if (authorRepository.existsById(id)){
+        //1. Verificando se o autor existe(Lança 404 caso não exista)
+        if (!authorRepository.existsById(id)){
+            throw new ResourceNotFoundException("Author not found with ID:" + id);
+        }
+
+        //2. Tentamos deletar (Lança 400 se o autor tiver livros)
+        try{
             authorRepository.deleteById(id);
-        } else {
-            throw new RuntimeException("Author not found!");
+        } catch (DataIntegrityViolationException e){
+            throw new DatabaseException("Cannot delete: Author is linked to existing books.");
         }
     }
 }
