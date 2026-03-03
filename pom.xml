@@ -20,6 +20,7 @@
     <!-- Versões de bibliotecas -->
     <properties>
         <java.version>21</java.version> <!-- Versão do Java para compilar e executar -->
+        <springdoc.version>2.7.0</springdoc.version>
     </properties>
 
     <dependencies>
@@ -53,6 +54,13 @@
             <scope>runtime</scope> <!-- Só disponível durante execução -->
             <optional>true</optional> <!-- Não é repassado para outros projetos -->
         </dependency>
+
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>${springdoc.version}</version>
+        </dependency>
+
 
     </dependencies>
 

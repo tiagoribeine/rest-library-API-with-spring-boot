@@ -19,6 +19,11 @@ spring:
       hibernate:
     show-sql: true #Exibe no console os comandos SQL gerados pelo hibernate - true é util para debug
 
+springdoc:
+  paths-to-match: /api/**/v1/**
+  swagger-ui:
+    user-root-path: true
+
 logging:
   level:
     com.github.tiagoribeine: INFO

@@ -1,8 +1,10 @@
 package com.github.tiagoribeine.controller;
 
+import com.github.tiagoribeine.controller.docs.AuthorControllerDocs;
 import com.github.tiagoribeine.model.Author;
 import com.github.tiagoribeine.service.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/v1/authors")
-public class AuthorController {
+public class AuthorController implements AuthorControllerDocs {
 
     @Autowired
     private AuthorService authorService;
@@ -20,10 +22,10 @@ public class AuthorController {
             value = "/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public Author findAuthor(
+    public Author findById(
             @PathVariable("id") Long id
     ){
-        return authorService.findAuthor(id) ;
+        return authorService.findById(id) ;
     }
 
     //[GET] Find all Authors;
@@ -31,8 +33,8 @@ public class AuthorController {
             value = "",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public List<Author> findAllAuthors(){
-        return authorService.findAllAuthors();
+    public List<Author> findAll(){
+        return authorService.findAll();
     }
 
     //[POST] Creates an author
@@ -41,11 +43,22 @@ public class AuthorController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public Author createAuthor(
+    @ResponseStatus(HttpStatus.CREATED)
+    public Author create(
             @RequestBody Author author
     ){
-        return authorService.createAuthor(author);
+        return authorService.create(author);
     }
+
+    //[POST] Creates A LIST author
+    @PostMapping(
+            value = "/bulk",
+            consumes = MediaType.APPLICATION_JSON_VALUE
+    )
+    @ResponseStatus(HttpStatus.CREATED)
+    public List<Author> createAll(@RequestBody List<Author> authors){
+        return authorService.createAll(authors);
+    };
 
     //[PUT] Updates an Author
     @PutMapping(
@@ -53,20 +66,20 @@ public class AuthorController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public Author author(
+    public Author update(
             @PathVariable("id") Long id,
             @RequestBody Author author
     ){
-        return authorService.updateAuthor(author, id);
+        return authorService.update(author, id);
     }
 
     //[[DELETE] Deletes an author
     @DeleteMapping(
             value = "/{id}"
     )
-    public void deleteAuthor(
+    public void delete(
             @PathVariable("id") Long id
     ){
-        authorService.deleteAuthor(id);
+        authorService.delete(id);
     }
 }
