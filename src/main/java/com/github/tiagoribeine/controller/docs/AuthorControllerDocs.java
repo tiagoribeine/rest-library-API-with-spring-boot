@@ -1,5 +1,7 @@
 package com.github.tiagoribeine.controller.docs;
 
+import com.github.tiagoribeine.dto.author.AuthorRequestDTO;
+import com.github.tiagoribeine.dto.author.AuthorResponseDTO;
 import com.github.tiagoribeine.model.Author;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -33,7 +35,7 @@ public interface AuthorControllerDocs {
                     @ApiResponse(responseCode = "404", description = "Not Found", content = @Content)
             }
     )
-    List<Author> findAll();
+    List<AuthorResponseDTO> findAll();
 
 
     // ====================================================== FIND BY ID
@@ -50,7 +52,7 @@ public interface AuthorControllerDocs {
                     @ApiResponse(responseCode = "404", description = "Not Found", content = @Content)
             }
     )
-    Author findById(Long id);
+    AuthorResponseDTO findById(Long id);
 
     // ====================================================== CREATE
     @Operation(
@@ -66,7 +68,7 @@ public interface AuthorControllerDocs {
                     @ApiResponse(responseCode = "404", description = "Not Found", content = @Content)
             }
     )
-    Author create(Author author);
+    AuthorResponseDTO create(AuthorRequestDTO author);
 
     // ====================================================== CREATE ALL
     @Operation(
@@ -82,7 +84,7 @@ public interface AuthorControllerDocs {
                     @ApiResponse(responseCode = "404", description = "Not Found", content = @Content)
             }
     )
-    List<Author> createAll(List<Author> authors);
+    List<AuthorResponseDTO> createAll(List<AuthorRequestDTO> authors);
 
     // ====================================================== UPDATE
     @Operation(
@@ -98,7 +100,7 @@ public interface AuthorControllerDocs {
                     @ApiResponse(responseCode = "404", description = "Not Found", content = @Content)
             }
     )
-    Author update(Long id, Author author);
+    AuthorResponseDTO update(Long id, AuthorRequestDTO author);
 
     // ====================================================== DELETE
     @Operation(

@@ -3,6 +3,7 @@ package com.github.tiagoribeine.controller;
 import com.github.tiagoribeine.controller.docs.BookControllerDocs;
 import com.github.tiagoribeine.model.Book;
 import com.github.tiagoribeine.service.BookService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -38,7 +39,7 @@ public class BookController implements BookControllerDocs {
     )
     @ResponseStatus(HttpStatus.CREATED)
     public Book create(
-            @RequestBody Book book
+           @Valid @RequestBody Book book
     ){
         return bookService.create(book);
     }
@@ -49,7 +50,7 @@ public class BookController implements BookControllerDocs {
             consumes = MediaType.APPLICATION_JSON_VALUE
     )
     @ResponseStatus(HttpStatus.CREATED) //Indica sucesso na criação
-    public List<Book> createAll(@RequestBody List<Book> books){
+    public List<Book> createAll(@Valid @RequestBody List<Book> books){
         return bookService.createAll(books);
     }
 
@@ -60,7 +61,7 @@ public class BookController implements BookControllerDocs {
     )
     public Book update(
             @PathVariable("id") Long id,
-            @RequestBody Book book
+           @Valid @RequestBody Book book
     ){
         return bookService.update(book, id);
     }
