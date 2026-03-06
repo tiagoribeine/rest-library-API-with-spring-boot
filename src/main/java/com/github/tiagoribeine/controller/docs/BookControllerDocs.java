@@ -1,5 +1,7 @@
 package com.github.tiagoribeine.controller.docs;
 
+import com.github.tiagoribeine.dto.book.BookRequestDTO;
+import com.github.tiagoribeine.dto.book.BookResponseDTO;
 import com.github.tiagoribeine.model.Book;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -48,7 +50,7 @@ public interface BookControllerDocs {
             @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content),
             @ApiResponse(responseCode = "404", description = "Not Found", content = @Content)
     })
-    List<Book> findAll();
+    List<BookResponseDTO> findAll();
 
 
     // ====================================================== FIND BY ID
@@ -65,7 +67,7 @@ public interface BookControllerDocs {
                     @ApiResponse(responseCode = "404", description = "Not Found", content = @Content)
             }
     )
-    Book findById(Long id);
+    BookResponseDTO findById(Long id);
 
 
     // ====================================================== CREATE
@@ -98,7 +100,7 @@ public interface BookControllerDocs {
                     @ApiResponse(responseCode = "404", description = "Not Found", content = @Content)
             }
     )
-    List<Book> createAll(@RequestBody List<Book> Book);
+    List<BookResponseDTO> createAll(@RequestBody List<BookRequestDTO> Book);
 
     // ====================================================== UPDATE
     @Operation(
@@ -114,7 +116,7 @@ public interface BookControllerDocs {
                 @ApiResponse(responseCode = "404", description = "Not Found", content = @Content)
             }
     )
-    Book update(Long id, Book book);
+    BookResponseDTO update(Long id, BookRequestDTO book);
 
     // ====================================================== DELETE
     @Operation(

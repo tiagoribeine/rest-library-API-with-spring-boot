@@ -21,6 +21,7 @@ public class AuthorMapper {
 
     // Converte Entidade para o DtoResponse (Para exibir)
     public AuthorResponseDTO EntityToResponse(Author author){
+        if (author == null) {return  null;}
         AuthorResponseDTO dto = new AuthorResponseDTO(
                 author.getId(),
                 author.getName(),

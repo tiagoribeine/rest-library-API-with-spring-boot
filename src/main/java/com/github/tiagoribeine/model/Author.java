@@ -36,6 +36,23 @@ public class Author implements Serializable {
     public Author() {
     }
 
+    public Author(Long id, String name, String nationality, LocalDate birthDate, String biography, List<Book> books) {
+        this.id = id;
+        this.name = name;
+        this.nationality = nationality;
+        this.birthDate = birthDate;
+        this.biography = biography;
+        this.books = books;
+    }
+
+    public Author(String name, String nationality, LocalDate birthDate, String biography, List<Book> books) {
+        this.name = name;
+        this.nationality = nationality;
+        this.birthDate = birthDate;
+        this.biography = biography;
+        this.books = books;
+    }
+
     public Long getId() {
         return id;
     }
@@ -75,7 +92,6 @@ public class Author implements Serializable {
     public void setBiography(String biography) {
         this.biography = biography;
     }
-
 
     public List<Book> getBooks() {
         return books;

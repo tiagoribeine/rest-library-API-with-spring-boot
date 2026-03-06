@@ -1,6 +1,8 @@
 package com.github.tiagoribeine.controller;
 
 import com.github.tiagoribeine.controller.docs.BookControllerDocs;
+import com.github.tiagoribeine.dto.book.BookRequestDTO;
+import com.github.tiagoribeine.dto.book.BookResponseDTO;
 import com.github.tiagoribeine.model.Book;
 import com.github.tiagoribeine.service.BookService;
 import jakarta.validation.Valid;
@@ -20,16 +22,17 @@ public class BookController implements BookControllerDocs {
 
     //[GET] FIND A BOOK
     @GetMapping("/{id}")
-    public Book findById(
+    public BookResponseDTO findById(
             @PathVariable("id") Long id
     ){
-        return bookService.findById(id);
+        return bookService.findByIdDTO(id);
     }
 
     //[GET] FIND ALL BOOKS
     @GetMapping("")
-    public List<Book> findAll(){
-        return bookService.findAll();
+    public List<BookResponseDTO> findAll(){
+        
+        return bookService.findAllDTO();
     }
 
     // [POST] CREATE A BOOK
@@ -39,7 +42,7 @@ public class BookController implements BookControllerDocs {
     )
     @ResponseStatus(HttpStatus.CREATED)
     public Book create(
-           @Valid @RequestBody Book book
+            @RequestBody Book book
     ){
         return bookService.create(book);
     }
@@ -50,8 +53,9 @@ public class BookController implements BookControllerDocs {
             consumes = MediaType.APPLICATION_JSON_VALUE
     )
     @ResponseStatus(HttpStatus.CREATED) //Indica sucesso na criação
-    public List<Book> createAll(@Valid @RequestBody List<Book> books){
-        return bookService.createAll(books);
+    public List<BookResponseDTO> createAll(
+            @RequestBody List<BookRequestDTO> books){
+        return bookService.createAllDTO(books);
     }
 
     // [PUT] UPDATE A BOOK
@@ -59,11 +63,11 @@ public class BookController implements BookControllerDocs {
             value = "/{id}",
             consumes = MediaType.APPLICATION_JSON_VALUE
     )
-    public Book update(
+    public BookResponseDTO update(
             @PathVariable("id") Long id,
-           @Valid @RequestBody Book book
+            @RequestBody BookRequestDTO book
     ){
-        return bookService.update(book, id);
+        return bookService.updateDTO(book, id);
     }
 
     // [DELETE] DELETES A BOOK

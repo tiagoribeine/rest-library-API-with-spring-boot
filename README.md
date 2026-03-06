@@ -6,12 +6,13 @@ A robust RESTful API for library management, built with **Java 21**, **Spring Bo
 
 ## Technologies
 
-- **Java 21**
-- **Spring Boot 3.4**
-- **Spring Data JPA** (Hibernate)
-- **SpringDoc OpenAPI 3** (Swagger)
-- **MySQL**
-- **Maven**
+* **Java 21** (Utilizing modern features like Records and Pattern Matching)
+* **Spring Boot 3.4**
+* **Spring Data JPA** (Hibernate)
+* **SpringDoc OpenAPI 3** (Swagger)
+* **MySQL**
+* **Maven**
+* **Jakarta Validation** (Bean Validation)
 
 ## Documentation & API Testing
 
@@ -23,12 +24,14 @@ The API is fully documented using **Swagger UI**. Once the application is runnin
 
 ## Key Features
 
-- **Full CRUD**: Complete management for Books and Authors.
-- **Bulk Operations**: Support for `POST /bulk` endpoints, allowing the creation of multiple records in a single transactional request.
-- **Global Error Handling**: Custom exception handler providing consistent JSON error responses.
-- **Decoupled Docs**: Professional separation between API code and OpenAPI metadata.
+* **Full CRUD & Data Integrity**: Complete management for Books and Authors with relational integrity.
+* **Resilient Mapping Strategy**: Custom Mappers built to handle partial data and null relationships gracefully, preventing `NullPointerExceptions` during DTO conversion.
+* **Bulk Operations**: Support for `POST /bulk` endpoints, allowing the creation of multiple records in a single transactional request.
+* **Global Error Handling**: Centralized `@ControllerAdvice` providing consistent, RFC-compliant JSON error responses for resource not found, validation errors, and more.
+* **Decoupled Docs**: Professional separation between API code and OpenAPI metadata using Interface-based documentation.
+* **Advanced Environment Management**: Integration with `.env` files for secure credential handling.
 
-## Getting Started
+##  Getting Started
 
 ### 1. Environment Configuration
 To ensure security and flexibility, this project uses environment variables for database credentials.
@@ -47,3 +50,13 @@ To automatically load the `.env` variables, I highly recommend:
 The project currently implements the following structure:
 * **Author**: Manages writer information (name, nationality, biography).
 * **Book**: Manages book details (title, ISBN, price) with a **Many-to-One** relationship linking each book to its respective author.
+
+
+
+---
+
+## Future Roadmap
+- [ ] Implement Pagination and Sorting for Book listings.
+- [ ] Add Spring Security with JWT Authentication.
+- [ ] Integration Tests with Testcontainers.
+- [ ] Automated CI/CD Pipeline via GitHub Actions.

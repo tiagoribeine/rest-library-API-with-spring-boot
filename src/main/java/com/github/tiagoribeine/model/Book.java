@@ -35,6 +35,23 @@ public class Book implements Serializable {
     public Book() {
     }
 
+    public Book(Long id, String title, Author author, String isbn, BigDecimal price, LocalDate launchDate) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.isbn = isbn;
+        this.price = price;
+        this.launchDate = launchDate;
+    }
+
+    public Book(String title, Author author, String isbn, BigDecimal price, LocalDate launchDate) {
+        this.title = title;
+        this.author = author;
+        this.isbn = isbn;
+        this.price = price;
+        this.launchDate = launchDate;
+    }
+
     public Long getId() {
         return id;
     }
